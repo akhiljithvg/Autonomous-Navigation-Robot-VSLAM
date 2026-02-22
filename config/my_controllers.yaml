@@ -1,7 +1,7 @@
 controller_manager:
   ros__parameters:
     update_rate: 30
-    # use_sim_time: true
+    use_sim_time: true
 
     diff_cont:
       type: diff_drive_controller/DiffDriveController
@@ -11,10 +11,15 @@ controller_manager:
 
 diff_cont:
   ros__parameters:
-
     publish_rate: 50.0
-
     base_frame_id: base_link
+    
+    # --- ADD THESE LINES ---
+    odom_frame_id: odom
+    enable_odom_tf: true
+    use_sim_time: true
+    topic_wheel_joints: true
+    # -----------------------
 
     left_wheel_names: ['left_wheel_joint']
     right_wheel_names: ['right_wheel_joint']
@@ -61,8 +66,6 @@ diff_cont:
     # angular.z.max_jerk: NAN
     # angular.z.min_jerk: NAN
 
-
-
-
-# joint_broad:
-#   ros__parameters:
+joint_broad:
+  ros__parameters:
+    use_sim_time: true
