@@ -54,6 +54,7 @@ A ROS 2 Jazzy-based autonomous mobile robot with **Visual SLAM** (RTAB-Map) for 
 
 ### Prerequisites
 ```bash
+sudo apt update
 sudo apt install ros-jazzy-navigation2 ros-jazzy-nav2-bringup \
     ros-jazzy-rtabmap-ros ros-jazzy-ros-gz ros-jazzy-twist-mux \
     ros-jazzy-ros2-controllers ros-jazzy-ros2-control
