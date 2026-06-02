@@ -59,6 +59,37 @@ sudo apt install ros-jazzy-navigation2 ros-jazzy-nav2-bringup \
     ros-jazzy-rtabmap-ros ros-jazzy-ros-gz ros-jazzy-twist-mux \
     ros-jazzy-ros2-controllers ros-jazzy-ros2-control
 ```
+##Create Workspace & Clone the Project
+
+Create and move into your workspace:
+
+```
+mkdir -p ~/sim_ws/src
+cd ~/sim_ws/src
+```
+Clone the repository:
+
+```
+git clone https://github.com/akhiljithvg/Autonomous-Navigation-Robot-VSLAM.git
+```
+Install any missing dependencies automatically:
+
+```
+cd ~/sim_ws
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y
+```
+Build the workspace:
+
+```
+colcon build --symlink-install
+```
+Source your workspace:
+
+```
+source install/setup.bash
+```
+Tip: Add source ~/sim_ws/install/setup.bash to your ~/.bashrc file so you don't have to run it in every new terminal window.
 
 ### Build
 ```bash
@@ -66,7 +97,12 @@ cd ~/sim_ws
 colcon build --symlink-install
 source install/setup.bash
 ```
+Install twist_stamper via apt
 
+```
+sudo apt update
+sudo apt install ros-jazzy-twist-stamper -y
+```
 ## 🗺️ Usage
 
 ### 1. Launch Gazebo Simulation
