@@ -155,6 +155,18 @@ origin: [-4.225, -5.65126, 0.0]
 
 Shut down all of your active mapping terminals (the ones running rtabmap.launch.py and teleop_twist_keyboard). This clears out the old SLAM nodes so they don't fight with Nav2 over the robot's control topics.
 
+## Wipe the Old Install Space & Rebuild
+
+Because ROS 2 caches the configuration parameters inside the install/ directory, we need to completely wipe out the old built versions so it copies over your clean fix:
+
+```
+cd ~/sim_ws
+rm -rf build/ install/ log/
+colcon build --symlink-install
+source install/setup.bash
+```
+
+
 2. Open Terminal 1: Launch the Gazebo Simulation
 
 Always start the simulation environment first. The physics engine and the robot description state publishers need to be alive so that the navigation nodes can immediately see the robot's simulated sensor data stream (LiDAR /scan and TF transforms).
