@@ -124,12 +124,12 @@ Drive the robot with teleop to explore the environment:
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r cmd_vel:=cmd_vel_joy
 ```
 
-##Exporting and Saving Your Map
+## Exporting and Saving Your Map
 
 Once you are satisfied with the map generated in RViz, you need to save it before shutting down the simulation. Open a new terminal and run the Nav2 map saver:
 
 ```
-ros2 run nav2_map_server map_saver_cli -f ~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/maps/my_arena_map
+ros2 run nav2_map_server map_saver_cli -f ~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/maps/my_arena_map --ros-args -r map:=/rtabmap/map
 ```
 This will automatically generate two files in your maps/ directory:
 
