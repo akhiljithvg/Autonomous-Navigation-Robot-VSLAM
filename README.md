@@ -141,6 +141,18 @@ This will automatically generate two files in your maps/ directory:
 ```
 cp ~/.ros/rtabmap.db ~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/maps/my_arena_db.db
 ```
+⚠️ Crucial Step for Portability: By default, the map saver hardcodes your system's absolute directory path inside the generated .yaml file. To ensure the map loads correctly across different machines or usernames, open maps/my_arena_map.yaml and modify the first line (image:) to use a relative path instead:
+
+```
+image: my_arena_map.pgm
+resolution: 0.05
+origin: [-4.225, -5.65126, 0.0]
+...
+```
+(Optional) To back up RTAB-Map's core 3D SLAM database file into the repository, copy it using:
+```
+cp ~/.ros/rtabmap.db ~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/maps/my_arena_db.db
+```
 
 ### 3. Autonomous Navigation — Use Saved Map
 
