@@ -149,38 +149,54 @@ resolution: 0.05
 origin: [-4.225, -5.65126, 0.0]
 ...
 ```
-(Optional) To back up RTAB-Map's core 3D SLAM database file into the repository, copy it using:
-```
-cp ~/.ros/rtabmap.db ~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/maps/my_arena_db.db
-```
-
 ### 3. Autonomous Navigation — Use Saved Map
 
-**Terminal 1** — Localization:
-```bash
+1. Close Everything First
+
+Shut down all of your active mapping terminals (the ones running rtabmap.launch.py and teleop_twist_keyboard). This clears out the old SLAM nodes so they don't fight with Nav2 over the robot's control topics.
+
+2. Open Terminal 1: Launch the Gazebo Simulation
+
+Always start the simulation environment first. The physics engine and the robot description state publishers need to be alive so that the navigation nodes can immediately see the robot's simulated sensor data stream (LiDAR /scan and TF transforms).
+```
+ros2 launch articubot_one launch_sim.launch.py
+```
+Wait until the Gazebo GUI window fully renders and you see your robot sitting in the arena.
+
+3. Open Terminal 2 & 3: Launch Localization & Navigation
+
+Now that the simulation is providing active clock and sensor data, bring up your navigation stack brains.
+
+In a new terminal, launch AMCL Localization:
+```
 ros2 launch nav2_bringup localization_launch.py \
-    map:=/path/to/maps/my_arena_map.yaml \
+    map:=~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/maps/my_arena_map.yaml \
     use_sim_time:=true \
-    params_file:=/path/to/config/nav2_params.yaml \
+    params_file:=~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/config/nav2_params.yaml \
     use_composition:=False
 ```
+In another terminal, launch Nav2 Navigation:
 
-**Terminal 2** — Navigation (after setting initial pose in RViz):
-```bash
+```
 ros2 launch articubot_one navigation_launch.py \
     use_sim_time:=true \
-    params_file:=/path/to/config/nav2_params.yaml
+    params_file:=~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/config/nav2_params.yaml
 ```
 
-**Terminal 3** — RViz:
-```bash
+4. Open Terminal 4: Open RViz (The Visualizer)
+
+Open RViz last. RViz is just a window to look at what your running nodes see. Opening it last ensures that the /map topic is already active from your localization node, so the background loads immediately without errors.
+```
 rviz2 -d /opt/ros/jazzy/share/nav2_bringup/rviz/nav2_default_view.rviz
 ```
+Once RViz opens:
 
-Then in RViz:
-1. Click **"2D Pose Estimate"** to set the robot's initial position
-2. Wait for AMCL particles to converge
-3. Click **"2D Goal Pose"** to send a navigation goal
+  1. Make sure your Fixed Frame is set to map.
+
+  2. Use the 2D Pose Estimate button at the top to tell the robot where it is sitting in Gazebo.
+
+  3. Use 2D Goal Pose to send it driving autonomously!
+
 
 ## 🔧 Pipeline Overview
 
