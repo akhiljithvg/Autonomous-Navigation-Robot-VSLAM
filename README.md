@@ -55,54 +55,50 @@ A ROS 2 Jazzy-based autonomous mobile robot with **Visual SLAM** (RTAB-Map) for 
 ### Prerequisites
 ```bash
 sudo apt update
-sudo apt install ros-jazzy-navigation2 ros-jazzy-nav2-bringup \
-    ros-jazzy-rtabmap-ros ros-jazzy-ros-gz ros-jazzy-twist-mux \
-    ros-jazzy-ros2-controllers ros-jazzy-ros2-control
+sudo apt install -y \
+    ros-jazzy-navigation2 \
+    ros-jazzy-nav2-bringup \
+    ros-jazzy-rtabmap-ros \
+    ros-jazzy-ros-gz \
+    ros-jazzy-ros-gz-sim \
+    ros-jazzy-ros-gz-bridge \
+    ros-jazzy-ros-gz-interfaces \
+    ros-jazzy-gz-ros2-control \
+    ros-jazzy-twist-mux \
+    ros-jazzy-twist-stamper \
+    ros-jazzy-ros2-controllers \
+    ros-jazzy-ros2-control \
+    ros-jazzy-teleop-twist-keyboard
 ```
-##Create Workspace & Clone the Project
 
-Create and move into your workspace:
+⚠️ Troubleshooting: Middleware FastDDS Binary Loop Fix
 
-```
-mkdir -p ~/sim_ws/src
-cd ~/sim_ws/src
-```
-Clone the repository:
-
-```
-git clone https://github.com/akhiljithvg/Autonomous-Navigation-Robot-VSLAM.git
-```
-Install any missing dependencies automatically:
-
-```
-cd ~/sim_ws
-rosdep update
-rosdep install --from-paths src --ignore-src -r -y
-```
-Build the workspace:
-
-```
-colcon build --symlink-install
-```
-Source your workspace:
-
-```
-source install/setup.bash
-```
-Tip: Add source ~/sim_ws/install/setup.bash to your ~/.bashrc file so you don't have to run it in every new terminal window.
-
-### Build
-```bash
-cd ~/sim_ws
-colcon build --symlink-install
-source install/setup.bash
-```
-Install twist_stamper via apt
+If you encounter a symbol lookup error stemming from libcontroller_manager_msgs and FastDDS during Gazebo controller initialization (causing the controller spawner nodes to time out or hang), run an explicit package upgrade to force synchronization of your underlying middleware dependencies:
 
 ```
 sudo apt update
-sudo apt install ros-jazzy-twist-stamper -y
+sudo apt install --only-upgrade ros-jazzy-fastrtps ros-jazzy-rmw-fastrtps-cpp ros-jazzy-rosidl-typesupport-fastrtps-cpp -y
+sudo apt dist-upgrade -y
 ```
+
+##Create Workspace & Build
+
+Create your workspace directory, clone the project files, resolve dependencies via rosdep, and build:
+```
+mkdir -p ~/sim_ws/src
+cd ~/sim_ws/src
+git clone [https://github.com/akhiljithvg/Autonomous-Navigation-Robot-VSLAM.git](https://github.com/akhiljithvg/Autonomous-Navigation-Robot-VSLAM.git)
+
+cd ~/sim_ws
+rosdep update
+rosdep install --from-paths src --ignore-src -r -y
+
+colcon build --symlink-install
+source install/setup.bash
+
+```
+💡 Tip: Add source ~/sim_ws/install/setup.bash to your ~/.bashrc file to automatically source the workspace in every new shell session.
+
 ## 🗺️ Usage
 
 ### 1. Launch Gazebo Simulation
