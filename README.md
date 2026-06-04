@@ -124,6 +124,24 @@ Drive the robot with teleop to explore the environment:
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r cmd_vel:=cmd_vel_joy
 ```
 
+##Exporting and Saving Your Map
+
+Once you are satisfied with the map generated in RViz, you need to save it before shutting down the simulation. Open a new terminal and run the Nav2 map saver:
+
+```
+ros2 run nav2_map_server map_saver_cli -f ~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/maps/my_arena_map
+```
+This will automatically generate two files in your maps/ directory:
+
+    my_arena_map.pgm (The 2D occupancy grid image)
+
+    my_arena_map.yaml (The metadata configuration file required by AMCL)
+
+(Optional) To back up RTAB-Map's core 3D SLAM database file into the repository, copy it using:
+```
+cp ~/.ros/rtabmap.db ~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/maps/my_arena_db.db
+```
+
 ### 3. Autonomous Navigation — Use Saved Map
 
 **Terminal 1** — Localization:
