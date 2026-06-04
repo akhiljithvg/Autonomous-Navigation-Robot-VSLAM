@@ -129,7 +129,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r cmd_vel:=cmd_
 Once you are satisfied with the map generated in RViz, you need to save it before shutting down the simulation. Open a new terminal and run the Nav2 map saver:
 
 ```
-ros2 run nav2_map_server map_saver_cli -f ~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/maps/my_arena_map --ros-args -r map:=/rtabmap/map
+ros2 run nav2_map_server map_saver_cli -f $HOME/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/maps/my_arena_map --ros-args -r map:=/rtabmap/map
 ```
 This will automatically generate two files in your maps/ directory:
 
@@ -182,9 +182,9 @@ Now that the simulation is providing active clock and sensor data, bring up your
 In a new terminal, launch AMCL Localization:
 ```
 ros2 launch nav2_bringup localization_launch.py \
-    map:=~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/maps/my_arena_map.yaml \
+    map:=$HOME/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/maps/my_arena_map.yaml \
     use_sim_time:=true \
-    params_file:=~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/config/nav2_params.yaml \
+    params_file:=$HOME/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/config/nav2_params.yaml \
     use_composition:=False
 ```
 In another terminal, launch Nav2 Navigation:
@@ -192,7 +192,7 @@ In another terminal, launch Nav2 Navigation:
 ```
 ros2 launch articubot_one navigation_launch.py \
     use_sim_time:=true \
-    params_file:=~/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/config/nav2_params.yaml
+    params_file:=$HOME/sim_ws/src/Autonomous-Navigation-Robot-VSLAM/config/nav2_params.yaml
 ```
 
 4. Open Terminal 4: Open RViz (The Visualizer)
